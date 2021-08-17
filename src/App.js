@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+
+import GlobalStyles from 'styles/GlobalStyles';
 import { getWeather } from 'services/weatherService';
+import Header from 'components/Header/Header';
 
 function App() {
   const [location, setLocation] = useState(false);
@@ -13,25 +16,30 @@ function App() {
     })
   })
   
-  return location ? (
-    weather ? (
-      <>
-        <h3>Clima em {weather.name}</h3>
-        <hr/>
-        <ul>
-          <li>Temperatura atual: {weather.main.temp}°</li>
-          <li>Temperatura máxima: {weather.main.temp_max}º</li>
-          <li>Temperatura mínima: {weather.main.temp_min}º</li>
-          <li>Pressão: {weather.main.pressure}</li>
-          <li>Umidade: {weather.main.humidity}%</li>
-        </ul>
-      </>
+  return (
+    <>
+    {location ? (
+      weather ? (
+        <>
+          <Header location={weather.name} />
+          <hr/>
+          <ul>
+            <li>Temperatura atual: {weather.main.temp}°</li>
+            <li>Temperatura máxima: {weather.main.temp_max}º</li>
+            <li>Temperatura mínima: {weather.main.temp_min}º</li>
+            <li>Pressão: {weather.main.pressure}</li>
+            <li>Umidade: {weather.main.humidity}%</li>
+          </ul>
+        </>
       ) : (
         <p>Carregando o clima...</p>
       )
-  ) : (
+    ) : (
     <>
       Você precisa habilitar a localização no browser!
+    </>
+    )}
+    <GlobalStyles />
     </>
   );
 }
